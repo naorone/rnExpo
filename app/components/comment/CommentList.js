@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Preloader from '../Preloader';
 import CommentEmpty from './CommentEmpty';
-import CommentComp from './Comment';
+import Comment from './Comment';
 import BackgroundImage from '../BackgroundImage';
-import { options, Comment } from '../../forms/comment';
+//import { options, Comment } from '../../forms/comment';
 import { Card, Divider, Text } from 'react-native-elements';
 import { View, ScrollView, KeyboardAvoidingView, StyleSheet, FlatList } from 'react-native';
 import * as firebase from 'firebase';
@@ -38,7 +38,7 @@ export default class CommentList extends Component {
 
 	renderComment( comment ) {
 		return (
-			<CommentComp commentText = {comment.comment} />
+			<Comment comment = {comment} />
 		)
 	}
 

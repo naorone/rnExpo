@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import BackgroundImage from '../../components/BackgroundImage';
 import AppButton from '../../components/AppButton';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, KeyboardAvoidingView, ScrollView } from 'react-native';
 import * as firebase from 'firebase';
 import { options, Restaurant } from '../../forms/restaurant';
 import t from 'tcomb-form-native';
@@ -46,8 +46,9 @@ export default class AddRestaurant extends Component {
 	render(){
 		const { restaurant } = this.state;
 		return (
+			<KeyboardAvoidingView style={styles.container} behavior="padding" enabled keyboardVerticalOffset={80}>
 			<BackgroundImage source = { require('../../../assets/images/bg5.jpg') }>
-				<View style = { styles.container }>
+				<ScrollView style = { styles.container }>
 					<Card title = 'Formulario de restaurantes'>
 						<View style = { styles.formContainer }>
 							<Form
@@ -69,8 +70,9 @@ export default class AddRestaurant extends Component {
 							/>
 						</View>	
 					</Card>					
-				</View>
+				</ScrollView>
 			</BackgroundImage>
+			</KeyboardAvoidingView>
 		)
 	}
 }
@@ -81,7 +83,7 @@ const styles = StyleSheet.create({
 		padding: 0,
 		height: '100%',
 		flex:1,
-		justifyContent: 'center',
+		//justifyContent: 'center', //ScrollView no permite justifyContent
 	},
 	buttonContainer: {
 		alignItems: 'center'

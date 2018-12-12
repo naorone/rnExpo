@@ -58,6 +58,7 @@ class Start extends Component {
 						iconName = 'sign-in'
 						iconSize = { 30 }
 						iconColor = '#fff'
+						
 					 />
 					<AppButton
 						bgColor = 'rgba(111, 38, 74, 0.9)'
@@ -70,7 +71,7 @@ class Start extends Component {
 
 					<AppButton
 						bgColor = 'rgba(67, 67, 146, 0.7)'
-						title = 'Entrar con '
+						title = 'Entrar con Facebook'
 						action = { this.facebook.bind( this ) }
 						iconName = 'facebook'
 						iconSize = { 30 }

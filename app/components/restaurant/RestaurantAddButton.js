@@ -9,12 +9,13 @@ export default class RestaurantAddButton extends Component {
     return(
       <View style = { styles.buttonContainer }>
         <AppButton
-          bgColor = 'rgba(111, 38, 74, 0.9)'
+          bgColor = 'rgba(255, 38, 74, 0.9)'
           title = 'Añadir un restaurante'
           action = { addRestaurant }
           iconName = 'plus'
           iconSize = { 30 }
           iconColor = '#fff'
+          
         />
       </View>
     )

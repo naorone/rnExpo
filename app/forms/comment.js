@@ -11,13 +11,15 @@ export const Comment = t.struct({
 
 export const options = {
 	fields: {
-		label: 'Puntuación',
-		help: 'Puntuación del 1 al 5',
-		template: sliderTemplate,
-		config: {
-			step: 1,
-			min: 1,
-			max: 5,
+		rating:{
+			label: 'Puntuación',
+			help: 'Puntuación del 1 al 5',
+			template: sliderTemplate,
+			config: {
+				step: 1,
+				min: 1,
+				max: 5,
+			},
 		},
 		comment: {
 			label: 'Comentario',
@@ -29,7 +31,9 @@ export const options = {
 					...Form.stylesheet.textbox,
 					normal: {
 						...Form.stylesheet.textbox.normal,
+				        textAlignVertical: 'top',
 						height: 100,
+
 					},
 					error: {
 						...Form.stylesheet.textbox.error,

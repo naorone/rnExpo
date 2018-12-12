@@ -41,7 +41,8 @@ export const options = {
 					...Form.stylesheet.textbox,
 					normal: {
 						...Form.stylesheet.textbox.normal,
-						height: 100,
+				        height: 100,
+				        textAlignVertical: 'top',
 					},
 					error: {
 						...Form.stylesheet.textbox.error,

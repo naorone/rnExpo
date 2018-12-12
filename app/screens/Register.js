@@ -7,7 +7,7 @@ import FormValidation from './../utils/validation';
 import { Card } from 'react-native-elements';
 import * as firebase from 'firebase';
 import Toast from 'react-native-simple-toast';
-import { Dimensions } from 'react-native';
+import { Dimensions, KeyboardAvoidingView } from 'react-native';
 
 
 const Form = t.form.Form;
@@ -68,7 +68,6 @@ export default class Register extends Component {
 
 	register () {
 		this.validate = this.refs.form.getValue();
-		console.log( this.validate );
 		if( this.validate ){
 			console.log( 'validación correcta ');
 			firebase.auth().createUserWithEmailAndPassword( this.state.user.email, this.state.user.password )
@@ -89,6 +88,7 @@ export default class Register extends Component {
 	render () {
 		return(
 			<BackgroundImage source = { require('../../assets/images/bg3.jpg')} >
+				 
 				<View style = {{ padding: 10 }}>
 					<Card containerStyle = {{backgroundColor: 'white'}}  title = 'Registro' >
 						<Form

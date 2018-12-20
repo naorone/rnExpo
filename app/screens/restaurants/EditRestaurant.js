@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import BackgroundImage from '../../components/BackgroundImage';
 import AppButton from '../../components/AppButton';
+import { NavigationActions } from 'react-navigation';
 import { View, StyleSheet, KeyboardAvoidingView, ScrollView } from 'react-native';
 import * as firebase from 'firebase';
 import { options, Restaurant } from '../../forms/restaurant';
@@ -10,37 +11,37 @@ import { Card } from 'react-native-elements';
 
 const Form = t.form.Form;
 
-export default class AddRestaurant extends Component {
-	constructor() {
-	  super();
-	
-	  this.state = {
-	  	restaurant: {
-	  		name: '',
-	  		address: '',
-	  		capacity: 0,
-	  		description: '',
-	  	}
-	  };
+export default class EditRestaurant extends Component {
+
+	constructor(props) {
+		super(props);
+		const { params } = this.props.navigation.state;
+		this.state = {
+				restaurant: params.restaurant, 
+			}
 	}
 
-	save(){
+	onChange( restaurant ) {
+		this.setState({
+			restaurant
+		})
+	}
+
+	update() {
 		const validate = this.refs.form.getValue();
 		if( validate ){
-			let data = {};
-			const key = firebase.database().ref().child('restaurants').push().key;
-			data[`restaurants/${key}`] = this.state.restaurant;
-			firebase.database().ref().update(data).then( () => {
-				//Toast.showWithGravity( 'Restaurante dado de alta', Toast.LONG, Toast.BOTTOM );
-				this.props.navigation.navigate('ListRestaurants');
+			let data = Object.assign( {}, validate );
+			console.log(this.state);
+			const ref = firebase.database().ref().child(`restaurants/${this.state.restaurant.id}`);
+			ref.update( data ).then( () => {
+				const navigateActions = NavigationActions.navigate({
+					routeName: 'DetailRestaurant',
+					params: { restaurant: this.state.restaurant }
+				});
+				this.props.navigation.dispatch(navigateActions);
 			})
+			
 		}
-	}
-
-	onChange( restaurant ){
-		this.setState({
-			restaurant,
-		})
 	}
 
 	render(){
@@ -49,7 +50,7 @@ export default class AddRestaurant extends Component {
 			<KeyboardAvoidingView style={styles.container} behavior="padding" enabled keyboardVerticalOffset={80}>
 			<BackgroundImage source = { require('../../../assets/images/bg5.jpg') }>
 				<ScrollView style = { styles.container }>
-					<Card title = 'Formulario de restaurantes'>
+					<Card title = 'Editar restaurante'>
 						<View style = { styles.formContainer }>
 							<Form
 								ref = 'form'
@@ -62,8 +63,8 @@ export default class AddRestaurant extends Component {
 						<View style = { styles.buttonContainer }>
 							<AppButton
 								bgColor = 'rgba(255, 38, 74, 0.9)'
-								title = 'Dar de alta'
-								action = { this.save.bind( this ) }
+								title = 'Editar'
+								action = { this.update.bind( this ) }
 								iconName = 'plus'
 								iconSize = { 30 }
 								iconColor = '#fff' 

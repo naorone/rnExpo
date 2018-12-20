@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { NavigationActions } from 'react-navigation';
-import Toast from 'react-native-simple-toast';
+//import Toast from 'react-native-simple-toast';
 import * as firebase from 'firebase';
 import BackgroundImage from './../components/BackgroundImage';
 import AppButton from './../components/AppButton';
@@ -36,12 +36,12 @@ class Start extends Component {
 			const credentials = firebase.auth.FacebookAuthProvider.credential( token );
 			firebase.auth().signInWithCredential( credentials )
 			.catch( error => {
-				Toast.showWithGravity( 'Error accediendo a Facebook', Toast.LONG, Toast.BOTTOM );
+				//Toast.showWithGravity( 'Error accediendo a Facebook', Toast.LONG, Toast.BOTTOM );
 			})
 		}else if (type === 'cancel') {
-			Toast.showWithGravity( 'Inicio de sesión cancelado', Toast.LONG, Toast.BOTTOM );
+			//Toast.showWithGravity( 'Inicio de sesión cancelado', Toast.LONG, Toast.BOTTOM );
 		}else {
-			Toast.showWithGravity( 'Error desconocido', Toast.LONG, Toast.BOTTOM );
+			//Toast.showWithGravity( 'Error desconocido', Toast.LONG, Toast.BOTTOM );
 		}
 	}
 

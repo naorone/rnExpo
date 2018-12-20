@@ -13,10 +13,10 @@
     "firebase": "^5.5.9",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
-    "react-native-elements": "0.19.1",
+    "react-native-elements": "1.0.0-beta5",
     "react-native-keyboard-aware-scroll-view": "^0.8.0",
     "react-native-simple-toast": "0.0.8",
-    "react-navigation": "^1.1.2",
+    "react-navigation": "^2.0.4",
     "tcomb-form-native": "^0.6.20"
   },
   "devDependencies": {

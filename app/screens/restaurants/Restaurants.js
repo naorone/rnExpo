@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import BackgroundImage from './../../components/BackgroundImage';
 import Preloader from './../../components/Preloader';
 import { StyleSheet, FlatList } from 'react-native';
-import { ListItem } from 'react-native-elements';
+import { ListItem, SearchBar } from 'react-native-elements';
 import * as firebase from 'firebase';
 import { NavigationActions } from 'react-navigation';
 import RestaurantEmpty from './../../components/restaurant/RestaurantEmpty';
@@ -16,11 +16,25 @@ export default class Restaurants extends Component {
         restaurants: [],
         loaded: false,
         logo: require('../../../assets/images/restaurant.png'),
+        search: '',
       };
       this.refRestaurants = firebase.database().ref().child('restaurants');
     }
 
     componentDidMount(){
+      const { search } = this.state;
+
+      if( ! search ) {
+        this.refRestaurants = firebase.database().ref().child('restaurants');   
+      } else {
+        this._filterRestaurants( search )
+      }
+
+      
+      this._loadFirebaseRestaurants();
+    }
+
+    _loadFirebaseRestaurants () {
       this.refRestaurants.on('value', snapshot => {
         let restaurants = [];
         snapshot.forEach(row => {
@@ -55,14 +69,47 @@ export default class Restaurants extends Component {
       this.props.navigation.dispatch( navigateAction );
     }
 
+    searchRestaurants( search ) {
+      this.setState({
+        search: search.charAt(0).toUpperCase() + search.slice(1)
+      });
+
+      if( search.length >= 3 ) {
+        this._filterRestaurants( search );
+        setTimeout( () =>  {
+          this._loadFirebaseRestaurants();
+        },200);
+      }
+
+      if( search.length == 0 ) {
+        this.resetSearch();
+      }
+    }
+
+    resetSearch () {
+      this.setState({
+        search: '',
+      });
+      this.refRestaurants = firebase.database().ref().child('restaurants');
+      setTimeout( () =>  {
+          this._loadFirebaseRestaurants();
+        },200);
+    }
+
+    _filterRestaurants( search ) {
+      this.refRestaurants = firebase.database().ref().child('restaurants')
+        .orderByChild('name')
+        .startAt( search )
+        .endAt( `${search}\uf8ff` );
+    }
+
     renderRestaurant ( restaurant ) {
       return(
         <ListItem
           containerStyle = { styles.item }
           titleStyle = { styles.title }
-          roundAvatar
           title = { `${restaurant.name} (capacidad: ${restaurant.capacity})` }
-          avatar = { this.state.logo }
+          leftAvatar = {{ source: this.state.logo }} 
           onPress = { () => this.restaurantDetail( restaurant ) }
           rightIcon = {{ name: 'arrow-right', type: 'font-awesome', style: styles.listIconStyle }}
         />
@@ -75,9 +122,23 @@ export default class Restaurants extends Component {
         return ( <Preloader /> )
       }
 
+      const searchBar = (
+        <SearchBar
+            platform = 'android'
+            showLoading
+            cancelIcon = {{ type: 'font-awesome', name: 'chevron-left' }}
+            placeholder = 'Buscar restaurante'
+            onChangeText = {( text ) => this.searchRestaurants( text ) }
+            onClear = { this.resetSearch.bind( this ) }
+            value = { this.state.search }
+            />
+      );
+
       if ( !restaurants.length ){
         return (
           <BackgroundImage source = { require('./../../../assets/images/bg5.jpg') }>
+            
+            { searchBar }
             <RestaurantEmpty text = 'No hay restaurantes disponibles' />
             <RestaurantAddButton addRestaurant = { this.addRestaurant.bind( this ) } />
           </BackgroundImage>
@@ -86,9 +147,14 @@ export default class Restaurants extends Component {
 
       return (
         <BackgroundImage source = { require('./../../../assets/images/bg5.jpg') }>
+          
+          { searchBar }
           <FlatList
             data = { restaurants }
-            renderItem = { ( data ) => this.renderRestaurant( data.item ) } />   
+            renderItem = { ( data ) => this.renderRestaurant( data.item ) } 
+            keyExtractor = {( data ) => data.id }
+          /> 
+
           <RestaurantAddButton
            addRestaurant = { this.addRestaurant.bind( this ) } />
         </BackgroundImage>

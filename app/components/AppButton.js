@@ -14,25 +14,29 @@ class AppButton extends Component {
 			buttonStyle = {{
 				backgroundColor: bgColor,
 				height: 45,
-				// borderBottomLeftRadius: 30,
-				// borderBottomRightRadius: 30,
-				// borderTopLeftRadius: 30,
-				// borderTopRightRadius: 30,
+				borderBottomLeftRadius: 30,
+				borderBottomRightRadius: 30,
+				borderTopLeftRadius: 30,
+				borderTopRightRadius: 30,
 				borderWidth: 0,
 				marginBottom: 5,
 				width: width*0.6,
 			}}
 			title = { title }
 			text = { title }
-			rightIcon = {{
-				name: iconName, type: 'font-awesome', backgroundColor: bgColor
-			}}
-			//{<Icon name = { iconName } size = { 15 }	color = { iconColor }/>}
-			rounded
-				
-    	/>
-      	
-    	
+			// rightIcon = {{
+			// 	name: iconName, type: 'font-awesome', backgroundColor: bgColor
+			// }}
+			//rounded
+			icon={
+			    <Icon
+			      name={ iconName }
+			      size={15}
+			      color={ iconColor }
+			    />
+			  }
+			iconRight
+			/>
     );
   }
 }

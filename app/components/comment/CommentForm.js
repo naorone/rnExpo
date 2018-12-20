@@ -4,7 +4,7 @@ import { options, Comment } from '../../forms/comment';
 import { Card } from 'react-native-elements';
 import { View, ScrollView, KeyboardAvoidingView, StyleSheet } from 'react-native';
 import * as firebase from 'firebase';
-import Toast from 'react-native-simple-toast'; 
+//import Toast from 'react-native-simple-toast'; 
 import t from 'tcomb-form-native';
 
 const Form = t.form.Form;
@@ -41,7 +41,7 @@ export default class CommentForm extends Component {
 						}
 					}
 				});
-				Toast.showWithGravity( 'Comentario publicado', Toast.LONG, Toast.TOP );
+				//Toast.showWithGravity( 'Comentario publicado', Toast.LONG, Toast.TOP );
 			});
 		}
 	}

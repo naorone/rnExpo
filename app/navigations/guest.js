@@ -1,10 +1,10 @@
 import React from 'react';
-import { StackNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
 import StartScreen from './../screens/Start';
 import LoginScreen from './../screens/Login';
 import RegisterScreen from './../screens/Register';
 
-export default StackNavigator(
+export default createStackNavigator(
 	{
 		Start: {
 			screen: StartScreen

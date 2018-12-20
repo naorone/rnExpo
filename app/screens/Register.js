@@ -6,7 +6,7 @@ import t from 'tcomb-form-native';
 import FormValidation from './../utils/validation';
 import { Card } from 'react-native-elements';
 import * as firebase from 'firebase';
-import Toast from 'react-native-simple-toast';
+//import Toast from 'react-native-simple-toast';
 import { Dimensions, KeyboardAvoidingView } from 'react-native';
 
 
@@ -72,10 +72,10 @@ export default class Register extends Component {
 			console.log( 'validación correcta ');
 			firebase.auth().createUserWithEmailAndPassword( this.state.user.email, this.state.user.password )
 			.then( () => {
-				Toast.showWithGravity( 'Bienvenido', Toast.LONG, Toast.BOTTOM );
+				//Toast.showWithGravity( 'Bienvenido', Toast.LONG, Toast.BOTTOM );
 			})
 			.catch((error) => {
-				Toast.showWithGravity( error.message );
+				//Toast.showWithGravity( error.message );
 			})
 		}
 	}
